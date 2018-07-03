@@ -17,21 +17,28 @@ import com.vvechirko.roomtest.db.dao.CommentDao;
 import com.vvechirko.roomtest.db.dao.ProductDao;
 import com.vvechirko.roomtest.db.entity.CommentEntity;
 import com.vvechirko.roomtest.db.entity.ProductEntity;
+import com.vvechirko.roomtest.db.pets.AddressEntity;
+import com.vvechirko.roomtest.db.pets.PetEntity;
+import com.vvechirko.roomtest.db.pets.UserDao;
+import com.vvechirko.roomtest.db.pets.UserEntity;
 
 import java.util.List;
 
-@Database(entities = {ProductEntity.class, CommentEntity.class}, version = 1)
+@Database(entities = {ProductEntity.class, CommentEntity.class,
+        UserEntity.class, PetEntity.class, AddressEntity.class}, version = 1)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase sInstance;
 
     @VisibleForTesting
-    public static final String DATABASE_NAME = "basic-sample-db";
+    public static final String DATABASE_NAME = "sample-db";
 
     public abstract ProductDao productDao();
 
     public abstract CommentDao commentDao();
+
+    public abstract UserDao userDao();
 
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
 
@@ -62,13 +69,10 @@ public abstract class AppDatabase extends RoomDatabase {
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
                         super.onCreate(db);
                         executors.diskIO().execute(() -> {
-                            // Add a delay to simulate a long-running operation
-                            addDelay();
                             // Generate the data for pre-population
                             AppDatabase database = AppDatabase.getInstance(appContext, executors);
                             List<ProductEntity> products = DataGenerator.generateProducts();
-                            List<CommentEntity> comments =
-                                    DataGenerator.generateCommentsForProducts(products);
+                            List<CommentEntity> comments = DataGenerator.generateComments(products);
 
                             insertData(database, products, comments);
                             // notify that the database was created and it's ready to be used
@@ -97,13 +101,6 @@ public abstract class AppDatabase extends RoomDatabase {
             database.productDao().saveProducts(products);
             database.commentDao().saveComments(comments);
         });
-    }
-
-    private static void addDelay() {
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException ignored) {
-        }
     }
 
     public LiveData<Boolean> getDatabaseCreated() {

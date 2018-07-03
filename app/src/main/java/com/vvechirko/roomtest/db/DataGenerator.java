@@ -41,8 +41,7 @@ public class DataGenerator {
         return products;
     }
 
-    public static List<CommentEntity> generateCommentsForProducts(
-            final List<ProductEntity> products) {
+    public static List<CommentEntity> generateComments(final List<ProductEntity> products) {
         List<CommentEntity> comments = new ArrayList<>();
         Random rnd = new Random();
 
