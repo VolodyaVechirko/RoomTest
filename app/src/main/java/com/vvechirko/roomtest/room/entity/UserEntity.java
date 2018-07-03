@@ -1,8 +1,11 @@
-package com.vvechirko.roomtest.db.pets;
+package com.vvechirko.roomtest.room.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+
+import com.vvechirko.roomtest.room.entity.AddressEntity;
+import com.vvechirko.roomtest.room.entity.PetEntity;
 
 import java.util.List;
 

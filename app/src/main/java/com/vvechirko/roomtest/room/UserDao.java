@@ -1,4 +1,4 @@
-package com.vvechirko.roomtest.db.pets;
+package com.vvechirko.roomtest.room;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
@@ -6,6 +6,10 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Transaction;
+
+import com.vvechirko.roomtest.room.entity.AddressEntity;
+import com.vvechirko.roomtest.room.entity.PetEntity;
+import com.vvechirko.roomtest.room.entity.UserEntity;
 
 import java.util.ArrayList;
 import java.util.List;

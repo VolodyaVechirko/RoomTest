@@ -1,34 +1,28 @@
-package com.vvechirko.roomtest.db;
+package com.vvechirko.roomtest;
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.persistence.room.Room;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.vvechirko.roomtest.db.entity.CommentEntity;
-import com.vvechirko.roomtest.db.pets.AddressEntity;
-import com.vvechirko.roomtest.db.pets.PetEntity;
-import com.vvechirko.roomtest.db.pets.UserDao;
-import com.vvechirko.roomtest.db.pets.UserEntity;
+import com.vvechirko.roomtest.room.entity.AddressEntity;
+import com.vvechirko.roomtest.room.AppDatabase;
+import com.vvechirko.roomtest.room.entity.PetEntity;
+import com.vvechirko.roomtest.room.UserDao;
+import com.vvechirko.roomtest.room.entity.UserEntity;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.vvechirko.roomtest.db.TestData.COMMENT_ENTITY;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class UserDaoTest {
-
-    @Rule
-    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     private AppDatabase mDatabase;
     private UserDao userDao;
@@ -86,8 +80,8 @@ public class UserDaoTest {
 
         List<UserEntity> users = userDao.getUsers();
 
-//        assertTrue(users.isEmpty());
-//        assertTrue(userDao.loadAddress().isEmpty());
+        assertTrue(users.isEmpty());
+        assertTrue(userDao.loadAddress().isEmpty());
         assertTrue(userDao.loadPets().isEmpty());
     }
 }

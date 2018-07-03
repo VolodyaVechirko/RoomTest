@@ -1,4 +1,4 @@
-package com.vvechirko.roomtest.db;
+package com.vvechirko.roomtest;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
@@ -97,6 +97,9 @@ public class RealmTest {
         RealmResults<UserModel> list = testRealm.where(UserModel.class).findAll();
 //        RealmResults<AddressModel> list = testRealm.where(AddressModel.class).findAll();
 //        RealmResults<PetModel> list = testRealm.where(PetModel.class).findAll();
-        assertTrue(list.isEmpty());
+
+        assertTrue(testRealm.where(UserModel.class).findAll().isEmpty());
+        assertTrue(testRealm.where(AddressModel.class).findAll().isEmpty());
+        assertTrue(testRealm.where(PetModel.class).findAll().isEmpty());
     }
 }

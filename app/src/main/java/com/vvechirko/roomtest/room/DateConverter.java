@@ -1,4 +1,4 @@
-package com.vvechirko.roomtest.db.converter;
+package com.vvechirko.roomtest.room;
 
 import android.arch.persistence.room.TypeConverter;
 

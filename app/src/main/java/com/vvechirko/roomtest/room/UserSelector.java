@@ -1,7 +1,11 @@
-package com.vvechirko.roomtest.db.pets;
+package com.vvechirko.roomtest.room;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Relation;
+
+import com.vvechirko.roomtest.room.entity.AddressEntity;
+import com.vvechirko.roomtest.room.entity.PetEntity;
+import com.vvechirko.roomtest.room.entity.UserEntity;
 
 import java.util.List;
 

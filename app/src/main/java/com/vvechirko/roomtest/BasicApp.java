@@ -18,27 +18,21 @@ package com.vvechirko.roomtest;
 
 import android.app.Application;
 
-import com.vvechirko.roomtest.db.AppDatabase;
+import com.vvechirko.roomtest.room.AppDatabase;
 
 /**
  * Android Application class. Used for accessing singletons.
  */
 public class BasicApp extends Application {
 
-    private AppExecutors mAppExecutors;
-
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mAppExecutors = new AppExecutors();
     }
 
     public AppDatabase getDatabase() {
-        return AppDatabase.getInstance(this, mAppExecutors);
+        return AppDatabase.getInstance(this);
     }
 
-    public DataRepository getRepository() {
-        return DataRepository.getInstance(getDatabase());
-    }
 }

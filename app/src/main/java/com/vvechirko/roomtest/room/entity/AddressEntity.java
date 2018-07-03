@@ -1,13 +1,11 @@
-package com.vvechirko.roomtest.db.pets;
+package com.vvechirko.roomtest.room.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.vvechirko.roomtest.db.entity.ProductEntity;
-
-@Entity(tableName = "pets",
+@Entity(tableName = "address",
         indices = {@Index(value = "userId")},
         foreignKeys = {
                 @ForeignKey(entity = UserEntity.class,
@@ -15,29 +13,32 @@ import com.vvechirko.roomtest.db.entity.ProductEntity;
                         childColumns = "userId",
                         onDelete = ForeignKey.CASCADE)
         })
-public class PetEntity {
+public class AddressEntity {
 
     @PrimaryKey
     private int id;
     private int userId;
-    private String name;
+    private String city;
 
-    public PetEntity() {
+    // some other fields
+
+
+    public AddressEntity() {
 
     }
 
-    public PetEntity(int id, int userId, String name) {
+    public AddressEntity(int id, int userId, String city) {
         this.id = id;
         this.userId = userId;
-        this.name = name;
+        this.city = city;
     }
 
-    public int getId() {
-        return id;
+    public String getCity() {
+        return city;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public int getUserId() {
@@ -48,11 +49,11 @@ public class PetEntity {
         this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 }

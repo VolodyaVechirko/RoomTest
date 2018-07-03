@@ -7,15 +7,16 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.TestCase.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
-class ExampleInstrumentedTest {
+public class ExampleInstrumentedTest {
 
     @Test
-    void useAppContext() {
+    public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
+
         assertEquals("com.vvechirko.roomtest", appContext.getPackageName());
     }
 }
