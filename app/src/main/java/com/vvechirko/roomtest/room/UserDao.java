@@ -14,6 +14,11 @@ import com.vvechirko.roomtest.room.entity.UserEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
+import io.reactivex.Single;
+
 @Dao
 public abstract class UserDao {
 
@@ -49,6 +54,30 @@ public abstract class UserDao {
     }
 
     @Transaction
+    public Flowable<List<UserEntity>> getUsersFlowable() {
+        return _loadUsersFlowable()
+                .flatMap(Flowable::fromIterable)
+                .map(row -> convert(row))
+                .toList().toFlowable();
+    }
+
+    @Transaction
+    public Single<List<UserEntity>> getUsersSingle() {
+        return _loadUsersSingle().toObservable()
+                .flatMap(Observable::fromIterable)
+                .map(row -> convert(row))
+                .toList();
+    }
+
+    @Transaction
+    public Maybe<List<UserEntity>> getUsersMaybe() {
+        return _loadUsersMaybe().toObservable()
+                .flatMap(Observable::fromIterable)
+                .map(row -> convert(row))
+                .toList().toMaybe();
+    }
+
+    @Transaction
     public UserEntity getUser(int userId) {
         UserSelector row = _loadUser(userId);
         return convert(row);
@@ -81,6 +110,15 @@ public abstract class UserDao {
 
     @Query("SELECT * FROM users")
     abstract List<UserSelector> _loadUsers();
+
+    @Query("SELECT * FROM users")
+    abstract Flowable<List<UserSelector>> _loadUsersFlowable();
+
+    @Query("SELECT * FROM users")
+    abstract Single<List<UserSelector>> _loadUsersSingle();
+
+    @Query("SELECT * FROM users")
+    abstract Maybe<List<UserSelector>> _loadUsersMaybe();
 
     @Delete
     abstract void _deleteUsers(List<UserEntity> users);

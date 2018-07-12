@@ -25,10 +25,15 @@ import com.vvechirko.roomtest.room.AppDatabase;
  */
 public class BasicApp extends Application {
 
+    private static BasicApp instance;
+
+    public static BasicApp getInstance() {
+        return instance;
+    }
     @Override
     public void onCreate() {
         super.onCreate();
-
+        instance = this;
     }
 
     public AppDatabase getDatabase() {
