@@ -10,10 +10,21 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RepositoryTyped {
 
+    ApiData apiData = new ApiData();
+    SomeDb someDb = new SomeDb();
+
     Repo<UserEntity> userRepo = new Repo<>(UserEntity.class);
     Repo<PostEntity> postRepo = new Repo<>(PostEntity.class);
 
-//    Repo<PostEntity> postRepo = new Repo<>(new ApiData().postApi, new SomeDb().postDao);
+    <T> Repo<T> of(Class<T> clazz) {
+        if (clazz.equals(UserEntity.class)) {
+            return (Repo<T>) userRepo;
+        } else if (clazz.equals(PostEntity.class)) {
+            return (Repo<T>) postRepo;
+        } else {
+            throw new IllegalArgumentException("Unsupported data type");
+        }
+    }
 
     class Repo<T> {
 
@@ -21,14 +32,9 @@ public class RepositoryTyped {
         SomeDb.Dao<T> dao;
 
         Repo(Class<T> clazz) {
-            api = new ApiData().of(clazz);
-            dao = new SomeDb().daoOf(clazz);
+            api = apiData.of(clazz);
+            dao = someDb.daoOf(clazz);
         }
-
-//        Repo(ApiData.Api<T> api, SomeDb.Dao<T> dao) {
-//            this.api = api;
-//            this.dao = dao;
-//        }
 
         public Flowable<List<T>> getAll() {
             return Flowable.merge(
