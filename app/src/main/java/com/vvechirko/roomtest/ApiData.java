@@ -16,17 +16,17 @@ import io.reactivex.schedulers.Schedulers;
 public class ApiData {
 
     public Single<List<UserEntity>> getUsersSingle() {
-        return Single.timer(2000, TimeUnit.SECONDS)
+        return Single.timer(2000, TimeUnit.MILLISECONDS)
                 .flatMap(o -> Single.just(Arrays.asList(getUser())));
     }
 
     public Observable<List<UserEntity>> getUsersObservable() {
-        return Observable.timer(2000, TimeUnit.SECONDS)
+        return Observable.timer(2000, TimeUnit.MILLISECONDS)
                 .flatMap(o -> Observable.just(Arrays.asList(getUser())));
     }
 
     public Flowable<List<UserEntity>> getUsersFlowable() {
-        return Flowable.timer(2000, TimeUnit.SECONDS)
+        return Flowable.timer(2000, TimeUnit.MILLISECONDS)
                 .flatMap(o -> Flowable.just(Arrays.asList(getUser())));
     }
 
