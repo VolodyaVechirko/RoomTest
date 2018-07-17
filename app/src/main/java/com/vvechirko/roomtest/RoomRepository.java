@@ -22,12 +22,12 @@ public class RoomRepository {
 
     public Flowable<List<UserEntity>> getUsersFlowable() {
         return Flowable.merge(
-                appDatabase.userDao().getUsersFlowable()
+                appDatabase.testDao().getUsersFlowable()
                         .observeOn(Schedulers.io()),
                 Flowable.defer(() -> isNetworkAvailable()
                         ? apiData.getUsersFlowable()
                         .observeOn(Schedulers.io())
-                        .doOnNext(l -> appDatabase.userDao().insertUsers(l))
+                        .doOnNext(l -> appDatabase.testDao().insertUsers(l))
                         : Flowable.empty()
                 )
         );
@@ -35,12 +35,12 @@ public class RoomRepository {
 
     public Flowable<List<UserEntity>> getUsersSingle() {
         return Single.merge(
-                appDatabase.userDao().getUsersSingle()
+                appDatabase.testDao().getUsersSingle()
                         .observeOn(Schedulers.io()),
                 Single.defer(() -> isNetworkAvailable()
                         ? apiData.getUsersSingle()
                         .observeOn(Schedulers.io())
-                        .doOnSuccess(l -> appDatabase.userDao().insertUsers(l))
+                        .doOnSuccess(l -> appDatabase.testDao().insertUsers(l))
                         : Single.error(new IllegalArgumentException("no internet"))
                 )
         );
@@ -48,12 +48,12 @@ public class RoomRepository {
 
     public Flowable<List<UserEntity>> getUsersMaybe() {
         return Maybe.merge(
-                appDatabase.userDao().getUsersMaybe()
+                appDatabase.testDao().getUsersMaybe()
                         .observeOn(Schedulers.io()),
                 Maybe.defer(() -> isNetworkAvailable()
                         ? apiData.getUsersSingle().toMaybe()
                         .observeOn(Schedulers.io())
-                        .doOnSuccess(l -> appDatabase.userDao().insertUsers(l))
+                        .doOnSuccess(l -> appDatabase.testDao().insertUsers(l))
                         : Maybe.empty()
                 )
         );

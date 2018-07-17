@@ -4,10 +4,10 @@ import android.arch.persistence.room.Room;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.vvechirko.roomtest.room.TestDao;
 import com.vvechirko.roomtest.room.entity.AddressEntity;
 import com.vvechirko.roomtest.room.AppDatabase;
 import com.vvechirko.roomtest.room.entity.PetEntity;
-import com.vvechirko.roomtest.room.UserDao;
 import com.vvechirko.roomtest.room.entity.UserEntity;
 
 import org.junit.After;
@@ -25,7 +25,7 @@ import static junit.framework.Assert.assertTrue;
 public class UserDaoTest {
 
     private AppDatabase mDatabase;
-    private UserDao userDao;
+    private TestDao userDao;
 
     @Before
     public void initDb() {
@@ -37,7 +37,7 @@ public class UserDaoTest {
                 .allowMainThreadQueries()
                 .build();
 
-        userDao = mDatabase.userDao();
+        userDao = mDatabase.testDao();
     }
 
     @After
