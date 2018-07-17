@@ -9,10 +9,12 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.vvechirko.roomtest.BasicApp.isNetworkAvailable;
+
 public class Repository {
 
-    ApiData apiData;
-    DbData dbData;
+    ApiData apiData = new ApiData();
+    DbData dbData = new DbData();
 
     Repo<UserEntity> userRepo = new Repo<UserEntity>(UserEntity.class);
     Repo<PostEntity> postRepo = new Repo<PostEntity>(PostEntity.class);
@@ -25,10 +27,6 @@ public class Repository {
         } else {
             throw new IllegalArgumentException("Unsupported data type");
         }
-    }
-
-    boolean isNetworkAvailable() {
-        return true;
     }
 
     public void clearDatabase() {

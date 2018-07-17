@@ -81,7 +81,7 @@ public class DbData {
 
         @Override
         public Observable<List<PostEntity>> getAll() {
-            return dao.getAll().toObservable();
+            return dao.getPosts().toObservable();
         }
 
         @Override

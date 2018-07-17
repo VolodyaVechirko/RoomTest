@@ -1,7 +1,10 @@
 package com.vvechirko.roomtest.room.entity;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+
+import java.util.List;
 
 @Entity(tableName = "posts")
 public class PostEntity {
@@ -10,6 +13,9 @@ public class PostEntity {
     private int id;
     private String title;
     private String content;
+
+    @Ignore
+    private List<CommentEntity> comments;
 
     public PostEntity() {
 
@@ -43,5 +49,13 @@ public class PostEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
     }
 }

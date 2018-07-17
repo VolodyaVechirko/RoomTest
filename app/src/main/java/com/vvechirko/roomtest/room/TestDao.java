@@ -33,10 +33,6 @@ public abstract class TestDao {
             }
 
             if (user.getPets() != null) {
-//                for (PetEntity pet : user.getPets()) {
-//                    pet.setUserId(user.getId());
-//                }
-
                 _insertPets(user.getPets());
             }
         }
